@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a00b0ee-3910-4174-b129-c04e4870fcf8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/app_cicd.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/boot.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.env" afterDir="false" />
+    <list default="true" id="7a00b0ee-3910-4174-b129-c04e4870fcf8" name="Changes" comment="Django app initializing">
+      <change afterPath="$PROJECT_DIR$/src/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/build/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.env" beforeDir="false" afterPath="$PROJECT_DIR$/test.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "agoncharovg"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/agoncharovg/app_cicd.git",
+    "accountId": "68864af1-e8e4-42d2-9283-f465ac930e55"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -111,6 +114,15 @@
       <option name="presentableId" value="Default" />
       <updated>1766611988196</updated>
     </task>
+    <task id="LOCAL-00001" summary="Django app initializing">
+      <option name="closed" value="true" />
+      <created>1766687802289</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1766687802289</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,5 +135,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Django app initializing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Django app initializing" />
   </component>
 </project>

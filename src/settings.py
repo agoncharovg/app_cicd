@@ -1,6 +1,8 @@
 import os
 
-DEBUG=False
+DEBUG=True
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
@@ -66,3 +68,5 @@ SECRET_KEY = os.getenv(
 )
 
 STATIC_URL = "/static/"
+# Путь на файловой системе для collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
