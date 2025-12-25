@@ -1,0 +1,21 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgres
+    env_file:
+      - test.env
+    image: postgres:15.2
+    environment:
+      POSTGRES_PASSWORD: masterkey
+      POSTGRES_USER: sysdba
+      POSTGRES_DB: app_django
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+#    profiles:
+#      - complete
+#      - local
+
+volumes:
+  postgres_data:
