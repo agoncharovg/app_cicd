@@ -15,7 +15,7 @@ pipeline {
         REMOTE_USER = 'runtime'
         SSH_CRED_ID = 'vm3-runtime-key'
         GIT_SSH_URL = 'git@github.com:agoncharovg/app_cicd.git'
-        GIT_BRANCH  = 'refs/heads/master'  // можно менять при необходимости
+        GIT_BRANCH  = 'refs/heads/master'  // полный ref для GitSCM
     }
 
     triggers {
