@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     env.FULL_IMAGE = "${IMAGE_NAME}:${env.GIT_TAG}"
-                    sh "docker build -t ${env.FULL_IMAGE} -f build/Dockerfile ."
+                    sh "docker build --network=host -t ${env.FULL_IMAGE} -f build/Dockerfile ."
                 }
             }
         }

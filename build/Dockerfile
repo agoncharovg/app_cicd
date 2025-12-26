@@ -15,3 +15,4 @@ RUN chmod +x /src/app/boot.sh
 
 EXPOSE 5101
 ENTRYPOINT ["./boot.sh"]
+
