@@ -14,31 +14,42 @@ pipeline {
         REMOTE_HOST = '192.168.58.133'
         REMOTE_USER = 'runtime'
         SSH_CRED_ID = 'vm3-runtime-key'
+        GIT_SSH_URL = 'git@github.com:agoncharovg/app_cicd.git'
+        GIT_BRANCH  = 'refs/heads/master'  // можно менять при необходимости
     }
 
-    // Pipeline запускается только по webhook
     triggers {
         githubPush()
     }
 
     stages {
 
-        stage('Check tag') {
+        stage('Checkout') {
             steps {
-                script {
-                    // деплой происходит ТОЛЬКО если это тег
-                    if (!env.GIT_TAG) {
-                        currentBuild.result = 'NOT_BUILT'
-                        error('Build skipped: not a git tag')
-                    }
-                    echo "Deploying tag: ${env.GIT_TAG}"
+                sshagent(credentials: [env.SSH_CRED_ID]) {
+                    checkout([$class: 'GitSCM',
+                        branches: [[name: env.GIT_BRANCH]],
+                        userRemoteConfigs: [[
+                            url: env.GIT_SSH_URL,
+                            credentialsId: env.SSH_CRED_ID
+                        ]]
+                    ])
                 }
             }
         }
 
-        stage('Checkout') {
+        stage('Check tag') {
             steps {
-                checkout scm
+                script {
+                    // Определяем тег текущего коммита
+                    def tag = sh(script: "git describe --tags --exact-match || echo ''", returnStdout: true).trim()
+                    if (!tag) {
+                        currentBuild.result = 'NOT_BUILT'
+                        error('Build skipped: not a git tag')
+                    }
+                    env.GIT_TAG = tag
+                    echo "Deploying tag: ${env.GIT_TAG}"
+                }
             }
         }
 
@@ -57,25 +68,25 @@ pipeline {
             }
         }
 
-        stage('Deploy to runtime VM') {
-            steps {
-                sshagent(credentials: [env.SSH_CRED_ID]) {
-                    sh """
-                    docker save ${env.FULL_IMAGE} | \
-                      ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} docker load
-
-                    ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} '
-                      docker stop ${APP_NAME} || true
-                      docker rm ${APP_NAME} || true
-                      docker run -d \
-                        --name ${APP_NAME} \
-                        -p 8000:8000 \
-                        ${env.FULL_IMAGE}
-                    '
-                    """
-                }
-            }
-        }
+//         stage('Deploy to runtime VM') {
+//             steps {
+//                 sshagent(credentials: [env.SSH_CRED_ID]) {
+//                     sh """
+//                     docker save ${env.FULL_IMAGE} | \
+//                       ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} docker load
+//
+//                     ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} '
+//                       docker stop ${APP_NAME} || true
+//                       docker rm ${APP_NAME} || true
+//                       docker run -d \
+//                         --name ${APP_NAME} \
+//                         -p 8000:8000 \
+//                         ${env.FULL_IMAGE}
+//                     '
+//                     """
+//                 }
+//             }
+//         }
     }
 
     post {
