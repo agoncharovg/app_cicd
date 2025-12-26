@@ -1,7 +1,7 @@
 #!groovy
 
 pipeline {
-    agent { label 'deploy' }
+    agent { label 'django-agent' }
 
     options {
         timestamps()
