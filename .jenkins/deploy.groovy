@@ -68,25 +68,25 @@ pipeline {
             }
         }
 
-//         stage('Deploy to runtime VM') {
-//             steps {
-//                 sshagent(credentials: [env.SSH_CRED_ID]) {
-//                     sh """
-//                     docker save ${env.FULL_IMAGE} | \
-//                       ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} docker load
-//
-//                     ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} '
-//                       docker stop ${APP_NAME} || true
-//                       docker rm ${APP_NAME} || true
-//                       docker run -d \
-//                         --name ${APP_NAME} \
-//                         -p 8000:8000 \
-//                         ${env.FULL_IMAGE}
-//                     '
-//                     """
-//                 }
-//             }
-//         }
+        stage('Deploy to runtime VM') {
+            steps {
+                sshagent(credentials: [env.SSH_CRED_ID]) {
+                    sh """
+                    docker save ${env.FULL_IMAGE} | \
+                      ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} docker load
+
+                    ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} '
+                      docker stop ${APP_NAME} || true
+                      docker rm ${APP_NAME} || true
+                      docker run -d \
+                        --name ${APP_NAME} \
+                        -p 8000:8000 \
+                        ${env.FULL_IMAGE}
+                    '
+                    """
+                }
+            }
+        }
     }
 
     post {
