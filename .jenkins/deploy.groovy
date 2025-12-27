@@ -32,7 +32,7 @@ pipeline {
                         branches: [[name: env.GIT_BRANCH]],
                         userRemoteConfigs: [[
                             url: env.GIT_SSH_URL,
-                            credentialsId: env.SSH_CRED_ID
+                            credentialsId: env.GIT_SSH_CRED
                         ]]
                     ])
                 }
