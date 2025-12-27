@@ -13,9 +13,10 @@ pipeline {
         IMAGE_NAME  = 'app_cicd'
         REMOTE_HOST = '192.168.58.133'
         REMOTE_USER = 'runtime'
-        SSH_CRED_ID = 'vm3-runtime-key'
+        RUNTIME_SSH_CRED = 'vm3-runtime-key'
         GIT_SSH_URL = 'git@github.com:agoncharovg/app_cicd.git'
         GIT_BRANCH  = 'refs/heads/master'  // полный ref для GitSCM
+        GIT_SSH_CRED = 'github-deploy-key'
     }
 
     triggers {
@@ -26,14 +27,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                sshagent(credentials: [env.SSH_CRED_ID]) {
-                    sh '''
-                    echo "=== ssh-add -L ==="
-                    ssh-add -L
-                    echo "=== test ssh ==="
-                    ssh -o StrictHostKeyChecking=no runtime@192.168.58.133 whoami
-                    '''
-
+                sshagent(credentials: [env.GIT_SSH_CRED]) {
                     checkout([$class: 'GitSCM',
                         branches: [[name: env.GIT_BRANCH]],
                         userRemoteConfigs: [[
@@ -77,7 +71,7 @@ pipeline {
 
         stage('Deploy to runtime VM') {
             steps {
-                sshagent(credentials: [env.SSH_CRED_ID]) {
+                sshagent(credentials: [env.RUNTIME_SSH_CRED]) {
                     sh """
                     docker save ${env.FULL_IMAGE} | \
                       ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} docker load
