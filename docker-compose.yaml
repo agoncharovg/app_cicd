@@ -5,7 +5,7 @@ services:
 #    build:
 #      context: .
 #      dockerfile: ./build/Dockerfile
-    image: qpp_cicd:latest
+    image: app_cicd:latest
     env_file:
       - test.env
     ports:
