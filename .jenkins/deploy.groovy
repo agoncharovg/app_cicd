@@ -73,7 +73,8 @@ pipeline {
             steps {
                 sshagent(credentials: [env.RUNTIME_SSH_CRED]) {
                     sh """
-                    rsync -av build/ docker-compose.yaml test.env ${REMOTE_USER}@${REMOTE_HOST}:/home/runtime/app
+                    rsync -av docker-compose.yaml test.env ${REMOTE_USER}@${REMOTE_HOST}:/home/runtime/app/
+                    rsync -av build ${REMOTE_USER}@${REMOTE_HOST}:/home/runtime/app/
 
                     ssh ${REMOTE_USER}@${REMOTE_HOST} '
                       cd /home/runtime/app
