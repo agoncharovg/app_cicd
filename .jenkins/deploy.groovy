@@ -76,7 +76,7 @@ pipeline {
                     rsync -av docker-compose.yaml build/ ${REMOTE_USER}@${REMOTE_HOST}:/home/runtime/app
 
                     ssh ${REMOTE_USER}@${REMOTE_HOST} '
-                      cd /opt/app
+                      cd /home/runtime/app
                       docker compose down
                       docker compose up -d --build
                     '
