@@ -73,16 +73,12 @@ pipeline {
             steps {
                 sshagent(credentials: [env.RUNTIME_SSH_CRED]) {
                     sh """
-                    docker save ${env.FULL_IMAGE} | \
-                      ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} docker load
+                    rsync -av docker-compose.yml build/ ${REMOTE_USER}@${REMOTE_HOST}:/opt/app/
 
-                    ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} '
-                      docker stop ${APP_NAME} || true
-                      docker rm ${APP_NAME} || true
-                      docker run -d \
-                        --name ${APP_NAME} \
-                        -p 8000:8000 \
-                        ${env.FULL_IMAGE} app
+                    ssh ${REMOTE_USER}@${REMOTE_HOST} '
+                      cd /opt/app
+                      docker compose down
+                      docker compose up -d --build
                     '
                     """
                 }
