@@ -82,7 +82,7 @@ pipeline {
                       docker run -d \
                         --name ${APP_NAME} \
                         -p 8000:8000 \
-                        ${env.FULL_IMAGE}
+                        ${env.FULL_IMAGE} app
                     '
                     """
                 }
