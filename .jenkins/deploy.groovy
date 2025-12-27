@@ -27,6 +27,13 @@ pipeline {
         stage('Checkout') {
             steps {
                 sshagent(credentials: [env.SSH_CRED_ID]) {
+                    sh '''
+                    echo "=== ssh-add -L ==="
+                    ssh-add -L
+                    echo "=== test ssh ==="
+                    ssh -o StrictHostKeyChecking=no runtime@192.168.58.133 whoami
+                    '''
+
                     checkout([$class: 'GitSCM',
                         branches: [[name: env.GIT_BRANCH]],
                         userRemoteConfigs: [[
