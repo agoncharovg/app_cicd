@@ -2,9 +2,10 @@ version: '3'
 services:
   app:
     container_name: app
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ./build/Dockerfile
+    image: qpp_cicd:latest
     env_file:
       - test.env
     ports:
@@ -27,9 +28,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-#    profiles:
-#      - complete
-#      - local
+
 
 volumes:
   postgres_data:
