@@ -74,8 +74,8 @@ pipeline {
                 sshagent(credentials: [env.RUNTIME_SSH_CRED]) {
                     sh """
                     rsync -av \
-                      build/ \
-                      src/ \
+                      build \
+                      src \
                       manage.py \
                       docker-compose.yaml \
                       test.env \
